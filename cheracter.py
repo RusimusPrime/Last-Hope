@@ -1,10 +1,39 @@
 import pygame
+from random import randint
+
 
 class run(pygame.sprite.Sprite):
     def __init__(self, screen, left=False, right=False, player_anim_count_beg=0,
                  player_x=100, player_y=450, player_anim_count_stoyka=0,
                  player_anim_count_jump=0, player_anim_count_jump_2=0, jumpcount=10, jump='False'):
-        print(0)
+        self.vital()
+        jump_r = [
+            pygame.image.load('sprites/jump1.png'),
+            pygame.image.load('sprites/jump2.png'),
+            pygame.image.load('sprites/jump3.png'),
+            pygame.image.load('sprites/jump4.png'),
+        ]
+        jump_l = [
+
+            pygame.image.load('sprites/jump5.png'),
+            pygame.image.load('sprites/jump6.png'),
+            pygame.image.load('sprites/jump7.png'),
+            pygame.image.load('sprites/jump8.png'),
+        ]
+        beg_r = [
+            pygame.image.load('sprites/beg1.png'),
+            pygame.image.load('sprites/beg2.png'),
+            pygame.image.load('sprites/beg3.png'),
+        ]
+        beg_l = [
+            pygame.image.load('sprites/beg4.png'),
+            pygame.image.load('sprites/beg5.png'),
+            pygame.image.load('sprites/beg6.png'),
+        ]
+        stoyka = [
+            pygame.image.load('sprites/stoyka1.png'),
+            pygame.image.load('sprites/stoyka2.png'),
+        ]
         self.keys = pygame.key.get_pressed()
         screen.fill('white')
         self.jumpcount = jumpcount
@@ -83,38 +112,14 @@ class run(pygame.sprite.Sprite):
             self.player_anim_count_jump = 0
             self.player_anim_count_jump_2 = 0
 
+    def vital(self):
+        print(randint(10000,10000000000000000000000000000))
+
 
 
 
 
 if __name__ == '__main__':
-    jump_r = [
-        pygame.image.load('sprites/jump1.png'),
-        pygame.image.load('sprites/jump2.png'),
-        pygame.image.load('sprites/jump3.png'),
-        pygame.image.load('sprites/jump4.png'),
-    ]
-    jump_l = [
-
-        pygame.image.load('sprites/jump5.png'),
-        pygame.image.load('sprites/jump6.png'),
-        pygame.image.load('sprites/jump7.png'),
-        pygame.image.load('sprites/jump8.png'),
-    ]
-    beg_r = [
-        pygame.image.load('sprites/beg1.png'),
-        pygame.image.load('sprites/beg2.png'),
-        pygame.image.load('sprites/beg3.png'),
-    ]
-    beg_l = [
-        pygame.image.load('sprites/beg4.png'),
-        pygame.image.load('sprites/beg5.png'),
-        pygame.image.load('sprites/beg6.png'),
-    ]
-    stoyka = [
-        pygame.image.load('sprites/stoyka1.png'),
-        pygame.image.load('sprites/stoyka2.png'),
-    ]
     pygame.init()
     pygame.display.set_caption('My game')
     size = width, height = 1200, 800
