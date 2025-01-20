@@ -1,16 +1,20 @@
 import pygame
+from Villian import MinorVillain
+
 
 class MainCharacter:
-    def __init__(self, attack, defence, speed, hp, path, x, y):
+    def __init__(self, attack=0, defence=0, speed=0, hp=0, path='', x=0, y=0):
         self.attack = attack
         self.defence = defence
         self.speed = speed
         self.hp = hp
         self.pos = (x, y)
-        image = pygame.transform.scale(pygame.image.load(path), (50, 100))
+        #  self.image = pygame.transform.scale(pygame.image.load(path), (50, 100))
 
     def attack(self):
-        pass
+        for elem in self.cords:
+            if abs(elem.get_pos[0] - self.pos[0]) <= 20:
+                elem.take_damage(self.attack)
 
     def change_attack(self):
         pass
@@ -26,3 +30,6 @@ class MainCharacter:
 
     def update_pos(self, x, y):
         self.pos = (x, y)
+
+    def get_cords_of_villian(self, *args):
+        self.cords = args[0]  # формат вида: MinorVillain()
