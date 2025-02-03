@@ -1,33 +1,50 @@
 import pygame
 
 
-class MinorVillain :
-    def __init__(self, attack, defence, speed, hp, path, width, height, x, y, on_the_screen=True):
-        self.attack = attack
-        self.defence = defence
-        self.speed = speed
-        self.hp = hp
-        self.image = pygame.transform.scale(pygame.image.load(path), (width, height))
+
+class MinorVillain(pygame.sprite.Sprite):
+    def __init__(self, x, y, on_the_screen=True, *group):
+        super().__init__(*group)
         self.on_the_screen = on_the_screen
-        self.pos = (x, y)
+        self.rect = pygame.transform.scale(pygame.image.load('images/enemy_2.png'), (128, 128)).get_rect()
+        self.direction = 'right'
+        self.count = 0
+        self.move_count = 0
+        self.rect.x, self.rect.y = x, y
+        self.current_image = pygame.transform.scale(pygame.image.load('images/enemy_2.png'), (128, 128))
+        self.sprites_right = [pygame.transform.scale(pygame.image.load('images/enemy_2.png'), (128, 128)),
+                              pygame.transform.scale(pygame.image.load('images/enemy_3.png'), (128, 128)),
+                              pygame.transform.scale(pygame.image.load('images/enemy_4.png'), (128, 128))]
+        self.sprites_left = [pygame.transform.flip(pygame.transform.scale(pygame.image.load('images/enemy_2.png'), (128, 128)), True, False),
+                             pygame.transform.flip(pygame.transform.scale(pygame.image.load('images/enemy_3.png'), (128, 128)), True, False),
+                             pygame.transform.flip(pygame.transform.scale(pygame.image.load('images/enemy_4.png'), (128, 128)), True, False)]
 
-    def attack(self):
-        pass
+    def update(self, hero):
+        if -100 < hero.rect.x - self.rect.x < 0 and self.direction == 'left':
+            self.rect.x += - 5
+            self.count = (self.count + 1) % 3
+            self.current_image = self.sprites_left[self.count]
 
-    def visible(self):
-        if self.on_the_screen:
-            pass  # Если переменная ровна True то отрисовывать спрйт
+        elif 0 < hero.rect.x - self.rect.x < 100 and self.direction == 'right':
+            self.rect.x += 5
+            self.count = (self.count + 1) % 3
+            self.current_image = self.sprites_right[self.count]
 
-    def take_damage(self, attack):
-        self.hp -= attack * self.defence / 100
+        else:
+            if self.direction == 'right':
+                self.rect.x += 2
+                self.move_count = (self.move_count + 1) % 50
+                self.current_image = self.sprites_right[self.move_count % 3]
 
-    def check_health(self):
-        return self.hp > 0
+            elif self.direction == 'left':
+                self.rect.x += -2
+                self.move_count = (self.move_count + 1) % 50
+                self.current_image = self.sprites_left[self.move_count % 3]
 
-    def check_screen(self):
-        return self.on_the_screen
+            if self.move_count == 0:
+                self.direction = 'right' if self.direction == 'left' else 'left'
 
-    def get_pos(self):
-        return self.pos
+    def are_sprites_touching(self, sprite2):
+        return self.rect.colliderect(sprite2.rect)
 
 

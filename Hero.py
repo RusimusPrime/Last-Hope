@@ -1,6 +1,4 @@
 import pygame
-from Villian import MinorVillain
-
 
 class MainCharacter:
     def __init__(self, attack=0, defence=0, speed=0, hp=0, path='', x=0, y=0):
@@ -8,7 +6,7 @@ class MainCharacter:
         self.defence = defence
         self.speed = speed
         self.hp = hp
-        self.pos = (x, y)
+        self.rect = pygame.transform.scale(pygame.image.load('sprites/stoyka1.png'), (128, 128)).get_rect()
         #  self.image = pygame.transform.scale(pygame.image.load(path), (50, 100))
 
     def attack(self):
