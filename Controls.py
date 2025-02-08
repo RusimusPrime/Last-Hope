@@ -32,7 +32,7 @@ def events(cheracter, back):
             # left
             if event.key == pygame.K_a:
                 cheracter.move_left = False
-
+            # hide
             if event.key == pygame.K_e:
                 cheracter.hide_index = False
                 cheracter.hide_count = 0

@@ -1,5 +1,6 @@
 import pygame
 
+
 class Lamp(pygame.sprite.Sprite):
     def __init__(self, screen):
         super().__init__()
@@ -7,32 +8,30 @@ class Lamp(pygame.sprite.Sprite):
         self.image = pygame.image.load('sprites/beg1.png')
         self.aura = pygame.image.load('sprites/aura.png')
         self.aura = pygame.transform.scale(self.aura,
-                                            (2048 * 3, 2048 * 3))
+                                           (2048 * 3, 2048 * 3))
         self.aura_rect = self.aura.get_rect()
-
         self.rect = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
-
         self.screen_rect = self.screen.get_rect()
         self.rect.centerx = self.screen_rect.centerx - 400
         self.aura_rect.centerx = self.screen_rect.centerx - 400
         self.aura_rect.centery = self.screen_rect.bottom - 195
         self.center = float(self.rect.centerx)
         self.rect.centery = self.screen_rect.bottom - 195
+
+        # всякие проверочные переменный
         self.move_right = False
         self.move_left = False
         self.move_jump = False
         self.walk_index = 2
-        # self.jump_sprites = 1
-        # self.jump_index = 15
         self.stand_index = 0
         self.stand_check = True
         self.collide = False
-        # self.collide_2 = False
         self.hide_index = False
         self.hide_count = 0
 
     def output(self, back):
+        # отрисовка персонажа и ауры
         self.screen.blit(self.image, self.rect)
         self.screen.blit(self.aura, self.aura_rect)
 
@@ -40,11 +39,13 @@ class Lamp(pygame.sprite.Sprite):
         print(self.hide_index)
         if self.hide_index == False:
             if self.stand_check == True:
+                # анимация бездействия персонажа
                 self.image = pygame.image.load(f'sprites/stoyka{self.stand_index // 6 + 1}.png')
                 self.image = pygame.transform.scale(self.image,
                                                     (54, 162))
                 self.stand_index = (self.stand_index + 1) % 12
             else:
+                # анимация ходьбы вправо
                 if self.move_right and self.rect.right < self.screen_rect.right:
                     self.center += 9
                     self.image = pygame.image.load(f'sprites/beg{self.walk_index // 2}.png')
@@ -53,7 +54,7 @@ class Lamp(pygame.sprite.Sprite):
                     self.walk_index = (self.walk_index + 1) % 8
                     if self.walk_index < 2:
                         self.walk_index = 2
-
+                # анимация ходьбы в лево
                 if self.move_left and self.rect.left > self.screen_rect.left:
                     self.center -= 9
                     self.image = pygame.image.load(f'sprites/beg{self.walk_index // 2 + 3}.png')
@@ -66,16 +67,17 @@ class Lamp(pygame.sprite.Sprite):
                 self.aura_rect.centerx = self.center
 
         else:
+            # анимация того как персонаж прячется
             if self.hide_count != 18:
                 self.image = pygame.image.load(f'sprites/hide/hide{self.hide_count // 2 + 1}.png')
-                self.image = pygame.transform.scale(self.image,
-                                                    (126, 180))
+                self.image = pygame.transform.scale(self.image,(126, 180))
                 self.hide_count = self.hide_count + 1
 
+        # проверка на касание с дверьми
         if pygame.sprite.collide_mask(self, back):
             print(back.image_index)
+            # телепортация в зависимости от координат
             if back.image_index == 3:
-
                 if self.rect.centerx < 600 and self.rect.centery > 400:
                     self.rect.centerx = 80
                     self.rect.centery = self.aura_rect.centery = 260

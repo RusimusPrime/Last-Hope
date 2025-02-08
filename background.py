@@ -21,8 +21,10 @@ class Background(pygame.sprite.Sprite):
         self.rect.bottom = self.screen_rect.bottom
 
     def output(self, mask):
+        # отрисовка фонов
         self.screen.blit(self.back, self.rect)
         self.screen.blit(self.image, self.rect)
+        # анимация открытия дверей
         if pygame.sprite.collide_mask(self, mask):
             if self.image_index != 4:
                 self.image = pygame.image.load(f'sprites/background_1_{self.image_index}.png')
