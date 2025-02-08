@@ -5,11 +5,18 @@ class Lamp(pygame.sprite.Sprite):
         super().__init__()
         self.screen = screen
         self.image = pygame.image.load('sprites/beg1.png')
-        self.test = pygame.image.load('sprites/тестовый.png')
+        self.aura = pygame.image.load('sprites/aura.png')
+        self.aura = pygame.transform.scale(self.aura,
+                                            (2048 * 3, 2048 * 3))
+        self.aura_rect = self.aura.get_rect()
+
         self.rect = self.image.get_rect()
         self.mask = pygame.mask.from_surface(self.image)
+
         self.screen_rect = self.screen.get_rect()
-        self.rect.centerx = self.screen_rect.centerx
+        self.rect.centerx = self.screen_rect.centerx - 400
+        self.aura_rect.centerx = self.screen_rect.centerx - 400
+        self.aura_rect.centery = self.screen_rect.bottom - 195
         self.center = float(self.rect.centerx)
         self.rect.centery = self.screen_rect.bottom - 195
         self.move_right = False
@@ -27,9 +34,9 @@ class Lamp(pygame.sprite.Sprite):
 
     def output(self, back):
         self.screen.blit(self.image, self.rect)
-        self.screen.blit(self.test, (100, 100))
+        self.screen.blit(self.aura, self.aura_rect)
 
-    def update(self):
+    def update(self, back):
         print(self.hide_index)
         if self.hide_index == False:
             if self.stand_check == True:
@@ -39,7 +46,7 @@ class Lamp(pygame.sprite.Sprite):
                 self.stand_index = (self.stand_index + 1) % 12
             else:
                 if self.move_right and self.rect.right < self.screen_rect.right:
-                    self.center += 7
+                    self.center += 9
                     self.image = pygame.image.load(f'sprites/beg{self.walk_index // 2}.png')
                     self.image = pygame.transform.scale(self.image,
                                                         (78, 150))
@@ -48,7 +55,7 @@ class Lamp(pygame.sprite.Sprite):
                         self.walk_index = 2
 
                 if self.move_left and self.rect.left > self.screen_rect.left:
-                    self.center -= 7
+                    self.center -= 9
                     self.image = pygame.image.load(f'sprites/beg{self.walk_index // 2 + 3}.png')
                     self.image = pygame.transform.scale(self.image,
                                                         (78, 150))
@@ -56,14 +63,40 @@ class Lamp(pygame.sprite.Sprite):
                     if self.walk_index < 2:
                         self.walk_index = 2
                 self.rect.centerx = self.center
+                self.aura_rect.centerx = self.center
 
         else:
-            if self.hide_count != 27:
-                self.image = pygame.image.load(f'sprites/hide/hide{self.hide_count // 3 + 1}.png')
+            if self.hide_count != 18:
+                self.image = pygame.image.load(f'sprites/hide/hide{self.hide_count // 2 + 1}.png')
                 self.image = pygame.transform.scale(self.image,
                                                     (126, 180))
                 self.hide_count = self.hide_count + 1
 
+        if pygame.sprite.collide_mask(self, back):
+            print(back.image_index)
+            if back.image_index == 3:
+                if self.rect.centerx < 600 and self.rect.centery > 400:
+                    self.rect.centerx = 80
+                    self.rect.centery = self.aura_rect.centery = 260
+                    self.aura_rect.centerx = 80
+                    self.aura_rect.centery = 260
+                    self.center = self.rect.centerx
+                elif self.rect.centerx > 600 and self.rect.centery > 400:
+                    self.rect.centerx = 1120
+                    self.rect.centery = self.aura_rect.centery = 260
+                    self.aura_rect.centerx = 1120
+                    self.aura_rect.centery = 260
+                    self.center = self.rect.centerx
+                elif self.rect.centerx < 600 and self.rect.centery < 400:
+                    self.rect.centerx = 80
+                    self.rect.centery = self.aura_rect.centery = self.screen_rect.bottom - 195
+                    self.aura_rect.centerx = 80
+                    self.center = self.rect.centerx
+                elif self.rect.centerx > 600 and self.rect.centery < 400:
+                    self.rect.centerx = 1120
+                    self.rect.centery = self.aura_rect.centery = self.screen_rect.bottom - 195
+                    self.aura_rect.centerx = 1120
+                    self.center = self.rect.centerx
 
         # elif self.collide:
         #     if self.move_right and self.rect.right < self.screen_rect.right:
