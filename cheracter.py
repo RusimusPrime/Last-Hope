@@ -75,6 +75,7 @@ class Lamp(pygame.sprite.Sprite):
         if pygame.sprite.collide_mask(self, back):
             print(back.image_index)
             if back.image_index == 3:
+
                 if self.rect.centerx < 600 and self.rect.centery > 400:
                     self.rect.centerx = 80
                     self.rect.centery = self.aura_rect.centery = 260
