@@ -1,5 +1,7 @@
 import pygame
 import sys
+
+
 import Controls
 from cheracter import Lamp
 from background import Background
@@ -7,7 +9,7 @@ from Villian import MinorVillain
 import cv2
 
 def screamer(window):
-    video = cv2.VideoCapture("images/screem.mp4")  # Установите свое  видео
+    video = cv2.VideoCapture("images/screem.mp4")
     success, video_image = video.read()
     fps = video.get(cv2.CAP_PROP_FPS)
 
@@ -42,23 +44,43 @@ def work():
     fps = 20
     lamp = Lamp(screen)
     back = Background(screen)
-    enemy = MinorVillain(300, 500)
+    enemy = MinorVillain(300, 510)
+    enemy2 = MinorVillain(300, 160)
     all_sprites = pygame.sprite.Group()
     all_sprites.add(back)
     all_sprites.add(lamp)
-
+    e_count = 0
     while True:
-        if (not lamp.hide_index) and eeeeeeeeeeeeenemy.are_sprites_touching(lamp):
+        if (not lamp.hide_index) and enemy.are_sprites_touching(lamp) or enemy2.are_sprites_touching(lamp):
             screamer(screen)
-            pygame.quit()
+            return True
+        if lamp.hide_index:
+            e_count += 1
+            if e_count > 100:
+                screamer(screen)
+                return True
+        else:
+            e_count = 0
         Controls.events(lamp, back)
         lamp.update(back)
         screen.fill(bg_color)
         all_sprites.draw(screen)
-        Controls.update(screen, bg_color, lamp, back, enemy)
+        Controls.update(screen, bg_color, lamp, back, enemy, enemy2)
         enemy.update(lamp)
+        enemy2.update(lamp)
 
         clock.tick(fps)
 
+start = 1
+while True:
+    if start == 1:
+        work()
+        start = 0
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            sys.exit()
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                start = 1
 
-work()
+
