@@ -36,7 +36,6 @@ class Lamp(pygame.sprite.Sprite):
         self.screen.blit(self.aura, self.aura_rect)
 
     def update(self, back):
-        print(self.hide_index)
         if self.hide_index == False:
             if self.stand_check == True:
                 # анимация бездействия персонажа
@@ -75,7 +74,6 @@ class Lamp(pygame.sprite.Sprite):
 
         # проверка на касание с дверьми
         if pygame.sprite.collide_mask(self, back):
-            print(back.image_index)
             # телепортация в зависимости от координат
             if back.image_index == 3:
                 if self.rect.centerx < 600 and self.rect.centery > 400:
