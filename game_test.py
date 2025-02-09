@@ -48,7 +48,7 @@ def work():
     all_sprites.add(lamp)
 
     while True:
-        if enemy.are_sprites_touching(lamp):
+        if (not lamp.hide_index) and eeeeeeeeeeeeenemy.are_sprites_touching(lamp):
             screamer(screen)
             pygame.quit()
         Controls.events(lamp, back)
