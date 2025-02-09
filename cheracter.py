@@ -31,7 +31,7 @@ class Lamp(pygame.sprite.Sprite):
         self.hide_count = 0
 
     def output(self, back):
-        # отрисовка персонажа и ауры
+        # отрисовка персонажа и аурыoooooo
         self.screen.blit(self.image, self.rect)
         self.screen.blit(self.aura, self.aura_rect)
 

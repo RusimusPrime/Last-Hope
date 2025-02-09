@@ -39,8 +39,9 @@ def events(cheracter, back):
                 cheracter.rect.centery = cheracter.rect.centery + 9
                 cheracter.rect.centerx = cheracter.rect.centerx + 36
 
-def update(screen, bg_color, lamp, back):
+def update(screen, bg_color, lamp, back, enemy):
     screen.fill(bg_color)
     back.output(lamp)
+    screen.blit(enemy.current_image, enemy.rect)
     lamp.output(back)
     pygame.display.flip()

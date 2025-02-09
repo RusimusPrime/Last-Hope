@@ -23,12 +23,12 @@ class MinorVillain(pygame.sprite.Sprite):
                              pygame.transform.flip(pygame.transform.scale(pygame.image.load('images/enemy4.png'), self.size), True, False)]
 # 300 - 900
     def update(self, hero):
-        if -200 < hero.rect.x - self.rect.x < 0 and self.direction == 'left':
+        if (not hero.hide_index) and -200 < hero.rect.x - self.rect.x < 0 and self.direction == 'left':
             self.rect.x += - 7
             self.count = (self.count + 1) % 12
             self.current_image = self.sprites_left[self.count // 3]
 
-        elif 0 < hero.rect.x - self.rect.x < 200 and self.direction == 'right':
+        elif (not hero.hide_index) and 0 < hero.rect.x - self.rect.x < 200 and self.direction == 'right':
             self.rect.x += 7
             self.count = (self.count + 1) % 12
             self.current_image = self.sprites_right[self.count // 3]
