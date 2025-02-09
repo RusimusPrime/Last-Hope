@@ -42,10 +42,9 @@ class MinorVillain(pygame.sprite.Sprite):
             elif self.direction == 'left':
                 self.rect.x += -3
                 self.move_count = (self.move_count + 1) % 12
-                print(self.move_count)
                 self.current_image = self.sprites_left[self.move_count // 3]
 
-            if self.rect.x < 300 or self.rect.x > 700:
+            if self.rect.x < 100 or self.rect.x > 1000:
                 self.direction = 'right' if self.direction == 'left' else 'left'
 
     def are_sprites_touching(self, sprite2):
