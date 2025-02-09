@@ -23,8 +23,8 @@ class Map(pygame.sprite.Sprite):
 
 screen = pygame.display.set_mode((1200, 800))
 all_sprites = pygame.sprite.Group()
-map = Map('output.gif', 'level.png', all_sprites)
-villin = MinorVillain(300, 300, True, all_sprites)
+map = Map('output.gif', 'sprites/background_1_1.png', all_sprites)
+villin = MinorVillain(300, 150, True, all_sprites)
 mc = MainCharacter()
 while True:
     screen.fill((0, 0, 0))
