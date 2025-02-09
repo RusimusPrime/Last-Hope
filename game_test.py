@@ -41,7 +41,7 @@ def work():
     pygame.display.set_caption("Last Hope")
     bg_color = (255, 255, 255)
     clock = pygame.time.Clock()
-    fps = 20
+    fps = 60
     lamp = Lamp(screen)
     back = Background(screen)
     enemy = MinorVillain(300, 510)
@@ -49,6 +49,7 @@ def work():
     all_sprites = pygame.sprite.Group()
     all_sprites.add(back)
     all_sprites.add(lamp)
+    aura = pygame.image.load('sprites/aura.png')
     e_count = 0
     while True:
         if (not lamp.hide_index) and enemy.are_sprites_touching(lamp) or enemy2.are_sprites_touching(lamp):
@@ -56,10 +57,19 @@ def work():
             return True
         if lamp.hide_index:
             e_count += 1
+            lamp.aura = pygame.transform.scale(lamp.aura,
+                                           (2048 * 3 - (2048 * 3 * 0.005 * e_count), 2048 * 3 - (2048 * 3 * 0.005 * e_count)))
+            lamp.aura_rect = lamp.aura.get_rect()
+            lamp.aura_rect.centerx = lamp.rect.centerx + 35
+            lamp.aura_rect.centery = lamp.rect.centery + 5
             if e_count > 100:
                 screamer(screen)
                 return True
         else:
+            lamp.aura = pygame.transform.scale(aura, (2048 * 3, 2048 * 3))
+            lamp.aura_rect = lamp.aura.get_rect()
+            lamp.aura_rect.centerx = lamp.rect.centerx
+            lamp.aura_rect.centery = lamp.rect.centery
             e_count = 0
         Controls.events(lamp, back)
         lamp.update(back)
