@@ -51,11 +51,11 @@ def work():
     all_sprites = pygame.sprite.Group()
     all_sprites.add(back)
     all_sprites.add(lamp)
-    aura = pygame.image.load('sprites/aura.png')
+    aura = pygame.image.load("sprites/aura.png")
     e_count = 0
     start_time = time.time()
     while True:
-        if (not lamp.hide_index) and enemy.are_sprites_touching(lamp) or enemy2.are_sprites_touching(lamp):
+        if (not lamp.hide_index) and (enemy.are_sprites_touching(lamp) or enemy2.are_sprites_touching(lamp)):
             screamer(screen)
             engine = pyttsx3.init()
             text = f"Вы прожили {str(abs(start_time - time.time()))[:str(start_time - time.time()).find('.')]} секунд"
@@ -83,12 +83,13 @@ def work():
             lamp.aura_rect.centery = lamp.rect.centery
             e_count = 0
         Controls.events(lamp, back)
+        enemy.update(lamp)
+        enemy2.update(lamp)
         lamp.update(back)
         screen.fill(bg_color)
         all_sprites.draw(screen)
         Controls.update(screen, bg_color, lamp, back, enemy, enemy2)
-        enemy.update(lamp)
-        enemy2.update(lamp)
+
 
         clock.tick(fps)
 
