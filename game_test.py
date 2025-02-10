@@ -51,7 +51,6 @@ def work():
     all_sprites = pygame.sprite.Group()
     all_sprites.add(back)
     all_sprites.add(lamp)
-    aura = pygame.image.load("sprites/aura.png")
     e_count = 0
     start_time = time.time()
     while True:
@@ -64,11 +63,7 @@ def work():
             return True
         if lamp.hide_index:
             e_count += 1
-            lamp.aura = pygame.transform.scale(lamp.aura,
-                                           (2048 * 3 - (2048 * 3 * 0.005 * e_count), 2048 * 3 - (2048 * 3 * 0.005 * e_count)))
-            lamp.aura_rect = lamp.aura.get_rect()
-            lamp.aura_rect.centerx = lamp.rect.centerx + 35
-            lamp.aura_rect.centery = lamp.rect.centery + 5
+            lamp.update_aura(e_count)
             if e_count > 100:
                 screamer(screen)
                 engine = pyttsx3.init()
@@ -76,12 +71,9 @@ def work():
                 engine.say(text)
                 engine.runAndWait()
                 return True
-        else:
-            lamp.aura = pygame.transform.scale(aura, (2048 * 3, 2048 * 3))
-            lamp.aura_rect = lamp.aura.get_rect()
-            lamp.aura_rect.centerx = lamp.rect.centerx
-            lamp.aura_rect.centery = lamp.rect.centery
+        elif e_count != 0:
             e_count = 0
+            lamp.update_aura(e_count)
         Controls.events(lamp, back)
         enemy.update(lamp)
         enemy2.update(lamp)
