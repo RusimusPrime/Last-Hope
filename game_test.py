@@ -1,7 +1,6 @@
 import pygame
 import sys
 
-
 import Controls
 from cheracter import Lamp
 from background import Background
@@ -9,6 +8,7 @@ from Villian import MinorVillain
 import cv2
 import time
 import pyttsx3
+
 
 def screamer(window):
     video = cv2.VideoCapture("images/screem.mp4")
@@ -81,9 +81,8 @@ def work():
         screen.fill(bg_color)
         all_sprites.draw(screen)
         Controls.update(screen, bg_color, lamp, back, enemy, enemy2)
-
-
         clock.tick(fps)
+
 
 start = 1
 while True:
@@ -96,5 +95,3 @@ while True:
         elif event.type == pygame.KEYDOWN:
             if event.key == pygame.K_SPACE:
                 start = 1
-
-
