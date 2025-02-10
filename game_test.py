@@ -7,6 +7,8 @@ from cheracter import Lamp
 from background import Background
 from Villian import MinorVillain
 import cv2
+import time
+import pyttsx3
 
 def screamer(window):
     video = cv2.VideoCapture("images/screem.mp4")
@@ -51,9 +53,14 @@ def work():
     all_sprites.add(lamp)
     aura = pygame.image.load('sprites/aura.png')
     e_count = 0
+    start_time = time.time()
     while True:
         if (not lamp.hide_index) and enemy.are_sprites_touching(lamp) or enemy2.are_sprites_touching(lamp):
             screamer(screen)
+            engine = pyttsx3.init()
+            text = f"Вы прожили {str(abs(start_time - time.time()))[:str(start_time - time.time()).find('.')]} секунд"
+            engine.say(text)
+            engine.runAndWait()
             return True
         if lamp.hide_index:
             e_count += 1
@@ -64,6 +71,10 @@ def work():
             lamp.aura_rect.centery = lamp.rect.centery + 5
             if e_count > 100:
                 screamer(screen)
+                engine = pyttsx3.init()
+                text = f"Вы прожили {str(abs(start_time - time.time()))[:str(start_time - time.time()).find('.')]} секунд"
+                engine.say(text)
+                engine.runAndWait()
                 return True
         else:
             lamp.aura = pygame.transform.scale(aura, (2048 * 3, 2048 * 3))
