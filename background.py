@@ -4,10 +4,10 @@ class Background(pygame.sprite.Sprite):
     def __init__(self, screen):
         super().__init__()
         self.screen = screen
-        self.image = pygame.image.load('sprites/background_1_1.png')
+        self.image = pygame.image.load("sprites/background_1_1.png")
         self.image = pygame.transform.scale(self.image,
                                                  (1200, 800))
-        self.back = pygame.image.load('sprites/back.png')
+        self.back = pygame.image.load("sprites/back.png")
         self.back = pygame.transform.scale(self.back,
                                             (1200, 800))
         self.image_index = 1
@@ -27,7 +27,7 @@ class Background(pygame.sprite.Sprite):
         # анимация открытия дверей
         if pygame.sprite.collide_mask(self, mask):
             if self.image_index != 4:
-                self.image = pygame.image.load(f'sprites/background_1_{self.image_index}.png')
+                self.image = pygame.image.load(f"sprites/background_1_{self.image_index}.png")
                 self.image = pygame.transform.scale(self.image,
                                                     (1200, 800))
 
@@ -36,7 +36,7 @@ class Background(pygame.sprite.Sprite):
                 self.image_index = 3
         else:
             if self.image_index != 0:
-                self.image = pygame.image.load(f'sprites/background_1_{self.image_index}.png')
+                self.image = pygame.image.load(f"sprites/background_1_{self.image_index}.png")
                 self.image = pygame.transform.scale(self.image,
                                                     (1200, 800))
                 self.image_index -= 1
