@@ -37,7 +37,7 @@ def screamer(window):
         pygame.display.flip()
 
 
-def work():
+def work(n):
     pygame.init()
     screen = pygame.display.set_mode((1200, 800))
     pygame.display.set_caption("Last Hope")
@@ -45,7 +45,7 @@ def work():
     clock = pygame.time.Clock()
     fps = 30
     lamp = Lamp(screen)
-    back = Background(screen)
+    back = Background(screen, n)
     enemy = MinorVillain(300, 510)
     enemy2 = MinorVillain(300, 160)
     all_sprites = pygame.sprite.Group()
