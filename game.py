@@ -10,12 +10,10 @@ import pyttsx3
 
 
 def screamer(window):
-    video = cv2.VideoCapture("data/screem.mp4")
+    video = cv2.VideoCapture("datа/screem.mp4")
     success, video_image = video.read()
     fps = video.get(cv2.CAP_PROP_FPS)
-
     clock = pygame.time.Clock()
-
     run = success
     while run:
         clock.tick(fps)
@@ -60,7 +58,7 @@ def work(n):
             text = f"Вы прожили {best_time} секунд"
             engine.say(text)
             engine.runAndWait()
-            con = sqlite3.connect("data/time.sqlite")
+            con = sqlite3.connect("datа/time.sqlite")
             con.execute("""INSERT INTO best_time (time) VALUES(?)""", (best_time,))
             con.commit()
             return True
@@ -74,7 +72,7 @@ def work(n):
                 text = f"Вы прожили {best_time} секунд"
                 engine.say(text)
                 engine.runAndWait()
-                con = sqlite3.connect("data/time.sqlite")
+                con = sqlite3.connect("datа/time.sqlite")
                 con.execute("""INSERT INTO best_time (time) VALUES(?)""", (best_time,))
                 con.commit()
                 return True

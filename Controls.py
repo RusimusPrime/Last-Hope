@@ -29,7 +29,6 @@ def events(cheracter, back):
             # right
             if event.key == pygame.K_d:
                 cheracter.move_right = False
-
             # left
             if event.key == pygame.K_a:
                 cheracter.move_left = False

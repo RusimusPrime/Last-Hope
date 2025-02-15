@@ -12,9 +12,9 @@ class Menu(pygame.sprite.Sprite):
         screen.blit(pygame.font.SysFont("Arial", 25).render("Начать игру", True, (255, 0, 0)), (540, 640))
         screen.blit(pygame.font.SysFont("Arial", 25).render("Другой уровень", True, (255, 0, 0)), (515, 675))
         screen.blit(pygame.font.SysFont("Arial", 25).render("Лучший результат", True, (255, 0, 0)), (500, 710))
-        self.images = [pygame.transform.scale(pygame.image.load("data/back_1.jpg"),
+        self.images = [pygame.transform.scale(pygame.image.load("datа/back_1.jpg"),
                                               (388, 260)),
-                       pygame.transform.scale(pygame.image.load("data/back_2.jpg"),
+                       pygame.transform.scale(pygame.image.load("datа/back_2.jpg"),
                                               (388, 260))]
         self.count = 0
         self.current_image = self.images[self.count]
@@ -39,7 +39,7 @@ class Menu(pygame.sprite.Sprite):
             self.count += 1
             self.current_image = self.images[self.count % 2]
         elif self.rect3.collidepoint(mouse):
-            con = sqlite3.connect("data/time.sqlite")
+            con = sqlite3.connect("datа/time.sqlite")
             cur = con.cursor()
             result = cur.execute("""SELECT * FROM best_time""").fetchall()
             result = max([int(elem[0]) for elem in result]) if result else ''
@@ -61,6 +61,7 @@ pygame.display.set_caption("Last Hope")
 screen.fill("black")
 menu = Menu(screen)
 clock = pygame.time.Clock()
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
