@@ -1,5 +1,5 @@
 import pygame
-import sys
+import sqlite3
 
 import Controls
 from cheracter import Lamp
@@ -43,7 +43,7 @@ def work():
     pygame.display.set_caption("Last Hope")
     bg_color = (255, 255, 255)
     clock = pygame.time.Clock()
-    fps = 60
+    fps = 30
     lamp = Lamp(screen)
     back = Background(screen)
     enemy = MinorVillain(300, 510)
@@ -57,9 +57,13 @@ def work():
         if (not lamp.hide_index) and (enemy.are_sprites_touching(lamp) or enemy2.are_sprites_touching(lamp)):
             screamer(screen)
             engine = pyttsx3.init()
-            text = f"Вы прожили {str(abs(start_time - time.time()))[:str(start_time - time.time()).find('.')]} секунд"
+            best_time = str(abs(start_time - time.time()))[:str(start_time - time.time()).find('.') - 1]
+            text = f"Вы прожили {best_time} секунд"
             engine.say(text)
             engine.runAndWait()
+            con = sqlite3.connect("time.sqlite")
+            con.execute("""INSERT INTO best_time (time) VALUES(?)""", (best_time, ))
+            con.commit()
             return True
         if lamp.hide_index:
             e_count += 1
@@ -67,9 +71,13 @@ def work():
             if e_count > 100:
                 screamer(screen)
                 engine = pyttsx3.init()
-                text = f"Вы прожили {str(abs(start_time - time.time()))[:str(start_time - time.time()).find('.')]} секунд"
+                best_time = str(abs(start_time - time.time()))[:str(start_time - time.time()).find('.') - 1]
+                text = f"Вы прожили {best_time} секунд"
                 engine.say(text)
                 engine.runAndWait()
+                con = sqlite3.connect("time.sqlite")
+                con.execute("""INSERT INTO best_time (time) VALUES(?)""", (best_time,))
+                con.commit()
                 return True
         elif e_count != 0:
             e_count = 0
@@ -84,14 +92,4 @@ def work():
         clock.tick(fps)
 
 
-start = 1
-while True:
-    if start == 1:
-        work()
-        start = 0
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT:
-            sys.exit()
-        elif event.type == pygame.KEYDOWN:
-            if event.key == pygame.K_SPACE:
-                start = 1
+
