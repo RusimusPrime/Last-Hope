@@ -6,7 +6,7 @@ class MainCharacter:
         self.defence = defence
         self.speed = speed
         self.hp = hp
-        self.rect = pygame.transform.scale(pygame.image.load('sprites/stoyka1.png'), (128, 128)).get_rect()
+        self.rect = pygame.transform.scale(pygame.image.load('data/stoyka1.png'), (128, 128)).get_rect()
         #  self.image = pygame.transform.scale(pygame.image.load(path), (50, 100))
 
     def attack(self):
