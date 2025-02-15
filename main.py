@@ -1,4 +1,4 @@
-from game_test import *
+from game import *
 import sqlite3
 import sys
 
@@ -6,22 +6,21 @@ import sys
 class Menu(pygame.sprite.Sprite):
     def __init__(self, screen):
         super().__init__()
-        pygame.draw.rect(screen, 'white', (406, 640, 388, 28))
-        pygame.draw.rect(screen, 'white', (406, 675, 388, 28))
-        pygame.draw.rect(screen, 'white', (406, 710, 388, 28))
-        screen.blit(pygame.font.SysFont('Arial', 25).render('Начать игру', True, (255, 0, 0)), (540, 640))
-        screen.blit(pygame.font.SysFont('Arial', 25).render('Другой уровень', True, (255, 0, 0)), (515, 675))
-        screen.blit(pygame.font.SysFont('Arial', 25).render('Лучший результат', True, (255, 0, 0)), (500, 710))
-        self.images = [pygame.transform.scale(pygame.image.load("images/back_1.jpg"),
+        pygame.draw.rect(screen, "white", (406, 640, 388, 28))
+        pygame.draw.rect(screen, "white", (406, 675, 388, 28))
+        pygame.draw.rect(screen, "white", (406, 710, 388, 28))
+        screen.blit(pygame.font.SysFont("Arial", 25).render("Начать игру", True, (255, 0, 0)), (540, 640))
+        screen.blit(pygame.font.SysFont("Arial", 25).render("Другой уровень", True, (255, 0, 0)), (515, 675))
+        screen.blit(pygame.font.SysFont("Arial", 25).render("Лучший результат", True, (255, 0, 0)), (500, 710))
+        self.images = [pygame.transform.scale(pygame.image.load("data/back_1.jpg"),
                                               (388, 260)),
-                       pygame.transform.scale(pygame.image.load("images/back_2.jpg"),
+                       pygame.transform.scale(pygame.image.load("data/back_2.jpg"),
                                               (388, 260))]
         self.count = 0
         self.current_image = self.images[self.count]
         self.rect1 = pygame.Rect(406, 640, 388, 28)
         self.rect2 = pygame.Rect(406, 675, 388, 28)
         self.rect3 = pygame.Rect(406, 710, 388, 28)
-        print(pygame.mouse.get_pos())
 
     def update(self, mouse):
         if self.rect1.collidepoint(mouse):
@@ -40,10 +39,10 @@ class Menu(pygame.sprite.Sprite):
             self.count += 1
             self.current_image = self.images[self.count % 2]
         elif self.rect3.collidepoint(mouse):
-            con = sqlite3.connect("time.sqlite")
+            con = sqlite3.connect("data/time.sqlite")
             cur = con.cursor()
             result = cur.execute("""SELECT * FROM best_time""").fetchall()
-            result = max(result) if result else ''
+            result = max([int(elem[0]) for elem in result]) if result else ''
             if result != '':
                 engine = pyttsx3.init()
                 text = f"Лучший результат {result} секунд"
@@ -59,7 +58,7 @@ class Menu(pygame.sprite.Sprite):
 pygame.init()
 screen = pygame.display.set_mode((1200, 800))
 pygame.display.set_caption("Last Hope")
-screen.fill('black')
+screen.fill("black")
 menu = Menu(screen)
 clock = pygame.time.Clock()
 while True:

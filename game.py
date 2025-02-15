@@ -1,6 +1,5 @@
 import pygame
 import sqlite3
-
 import Controls
 from cheracter import Lamp
 from background import Background
@@ -11,7 +10,7 @@ import pyttsx3
 
 
 def screamer(window):
-    video = cv2.VideoCapture("images/screem.mp4")
+    video = cv2.VideoCapture("data/screem.mp4")
     success, video_image = video.read()
     fps = video.get(cv2.CAP_PROP_FPS)
 
@@ -61,8 +60,8 @@ def work(n):
             text = f"Вы прожили {best_time} секунд"
             engine.say(text)
             engine.runAndWait()
-            con = sqlite3.connect("time.sqlite")
-            con.execute("""INSERT INTO best_time (time) VALUES(?)""", (best_time, ))
+            con = sqlite3.connect("data/time.sqlite")
+            con.execute("""INSERT INTO best_time (time) VALUES(?)""", (best_time,))
             con.commit()
             return True
         if lamp.hide_index:
@@ -75,7 +74,7 @@ def work(n):
                 text = f"Вы прожили {best_time} секунд"
                 engine.say(text)
                 engine.runAndWait()
-                con = sqlite3.connect("time.sqlite")
+                con = sqlite3.connect("data/time.sqlite")
                 con.execute("""INSERT INTO best_time (time) VALUES(?)""", (best_time,))
                 con.commit()
                 return True
@@ -90,6 +89,3 @@ def work(n):
         all_sprites.draw(screen)
         Controls.update(screen, bg_color, lamp, back, enemy, enemy2)
         clock.tick(fps)
-
-
-

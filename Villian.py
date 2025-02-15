@@ -1,27 +1,32 @@
 import pygame
 
 
-
 class MinorVillain(pygame.sprite.Sprite):
     def __init__(self, x, y, on_the_screen=True, *group):
         super().__init__(*group)
         self.on_the_screen = on_the_screen
-        self.rect = pygame.transform.scale(pygame.image.load("images/enemy2.png"), (128, 128)).get_rect()
+        self.rect = pygame.transform.scale(pygame.image.load("data/enemy2.png"), (128, 128)).get_rect()
         self.direction = "right"
         self.count = 0
         self.move_count = 0
         self.rect.x, self.rect.y = x, y
         self.size = (114, 200)
-        self.current_image = pygame.transform.scale(pygame.image.load("images/enemy1.png"), self.size)
-        self.sprites_right = [pygame.transform.scale(pygame.image.load("images/enemy1.png"), self.size),
-                              pygame.transform.scale(pygame.image.load("images/enemy2.png"), self.size),
-                              pygame.transform.scale(pygame.image.load("images/enemy3.png"), self.size),
-                              pygame.transform.scale(pygame.image.load("images/enemy4.png"), self.size)]
-        self.sprites_left = [pygame.transform.flip(pygame.transform.scale(pygame.image.load("images/enemy1.png"), self.size), True, False),
-                             pygame.transform.flip(pygame.transform.scale(pygame.image.load("images/enemy2.png"), self.size), True, False),
-                             pygame.transform.flip(pygame.transform.scale(pygame.image.load("images/enemy3.png"), self.size), True, False),
-                             pygame.transform.flip(pygame.transform.scale(pygame.image.load("images/enemy4.png"), self.size), True, False)]
-# 300 - 900
+        self.current_image = pygame.transform.scale(pygame.image.load("data/enemy1.png"), self.size)
+        self.sprites_right = [pygame.transform.scale(pygame.image.load("data/enemy1.png"), self.size),
+                              pygame.transform.scale(pygame.image.load("data/enemy2.png"), self.size),
+                              pygame.transform.scale(pygame.image.load("data/enemy3.png"), self.size),
+                              pygame.transform.scale(pygame.image.load("data/enemy4.png"), self.size)]
+        self.sprites_left = [
+            pygame.transform.flip(pygame.transform.scale(pygame.image.load("data/enemy1.png"), self.size), True,
+                                  False),
+            pygame.transform.flip(pygame.transform.scale(pygame.image.load("data/enemy2.png"), self.size), True,
+                                  False),
+            pygame.transform.flip(pygame.transform.scale(pygame.image.load("data/enemy3.png"), self.size), True,
+                                  False),
+            pygame.transform.flip(pygame.transform.scale(pygame.image.load("data/enemy4.png"), self.size), True,
+                                  False)]
+
+    # 300 - 900
     def update(self, hero):
         if (not hero.hide_index) and -200 < hero.rect.x - self.rect.x < 0 and self.direction == "left":
             self.rect.x += - 7
@@ -49,5 +54,3 @@ class MinorVillain(pygame.sprite.Sprite):
 
     def are_sprites_touching(self, sprite2):
         return self.rect.colliderect(sprite2.rect)
-
-
