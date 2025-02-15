@@ -131,7 +131,8 @@ class Lamp(pygame.sprite.Sprite):
             self.aura_rect.centerx = self.rect.centerx + 35
             self.aura_rect.centery = self.rect.centery + 5
         else:
-            self.aura = pygame.transform.scale(self.aura, (2048 * 3, 2048 * 3))
+            self.aura = pygame.transform.scale(pygame.image.load("sprites/aura.png"),
+                                               (2048 * 3, 2048 * 3))
             self.aura_rect = self.aura.get_rect()
             self.aura_rect.centerx = self.rect.centerx
             self.aura_rect.centery = self.rect.centery

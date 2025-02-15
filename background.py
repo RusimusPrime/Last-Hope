@@ -1,13 +1,13 @@
 import pygame
 
 class Background(pygame.sprite.Sprite):
-    def __init__(self, screen):
+    def __init__(self, screen, n):
         super().__init__()
         self.screen = screen
         self.image = pygame.image.load("sprites/background_1_1.png")
         self.image = pygame.transform.scale(self.image,
                                                  (1200, 800))
-        self.back = pygame.image.load("sprites/back.png")
+        self.back = pygame.image.load("sprites/back.png") if n % 2 == 0 else pygame.image.load("sprites/back_2.jpg")
         self.back = pygame.transform.scale(self.back,
                                             (1200, 800))
         self.image_index = 1
