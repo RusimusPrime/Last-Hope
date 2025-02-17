@@ -29,14 +29,14 @@ class Lamp(pygame.sprite.Sprite):
         self.hide_index = False
         self.hide_count = 0
 
-    def output(self, back):
+    def output(self):
         # отрисовка персонажа и аурыoooooo
         self.screen.blit(self.image, self.rect)
         self.screen.blit(self.aura, self.aura_rect)
 
     def update(self, back):
-        if self.hide_index == False:
-            if self.stand_check == True:
+        if not self.hide_index:
+            if self.stand_check:
                 # анимация бездействия персонажа
                 self.image = pygame.image.load(f"datа/stoyka{self.stand_index // 6 + 1}.png")
                 self.image = pygame.transform.scale(self.image,

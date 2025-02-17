@@ -45,5 +45,5 @@ def update(screen, bg_color, lamp, back, enemy, enemy2):
     back.output(lamp)
     screen.blit(enemy.current_image, enemy.rect)
     screen.blit(enemy2.current_image, enemy2.rect)
-    lamp.output(back)
+    lamp.output()
     pygame.display.flip()

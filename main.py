@@ -9,9 +9,12 @@ class Menu(pygame.sprite.Sprite):
         pygame.draw.rect(screen, "white", (406, 640, 388, 28))
         pygame.draw.rect(screen, "white", (406, 675, 388, 28))
         pygame.draw.rect(screen, "white", (406, 710, 388, 28))
-        screen.blit(pygame.font.SysFont("Arial", 25).render("Начать игру", True, (255, 0, 0)), (540, 640))
-        screen.blit(pygame.font.SysFont("Arial", 25).render("Другой уровень", True, (255, 0, 0)), (515, 675))
-        screen.blit(pygame.font.SysFont("Arial", 25).render("Лучший результат", True, (255, 0, 0)), (500, 710))
+        screen.blit(pygame.font.SysFont("Arial", 25).render("Начать игру",
+                                                            True, (255, 0, 0)), (540, 640))
+        screen.blit(pygame.font.SysFont("Arial", 25).render("Другой уровень",
+                                                            True, (255, 0, 0)), (515, 675))
+        screen.blit(pygame.font.SysFont("Arial", 25).render("Лучший результат",
+                                                            True, (255, 0, 0)), (500, 710))
         self.images = [pygame.transform.scale(pygame.image.load("datа/back_1.jpg"),
                                               (388, 260)),
                        pygame.transform.scale(pygame.image.load("datа/back_2.jpg"),
