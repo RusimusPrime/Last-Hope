@@ -45,7 +45,7 @@ class Menu(pygame.sprite.Sprite):
             con = sqlite3.connect("datа/time.sqlite")
             cur = con.cursor()
             result = cur.execute("""SELECT * FROM best_time""").fetchall()
-            result = max([int(elem[0]) for elem in result]) if result else ''
+            result = max(list(map(int, result))) if result else ''
             if result != '':
                 engine = pyttsx3.init()
                 text = f"Лучший результат {result} секунд"
