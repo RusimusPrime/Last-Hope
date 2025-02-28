@@ -1,5 +1,4 @@
 import pygame, sys
-import keyboard
 
 
 def events(cheracter, back):
