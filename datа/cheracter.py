@@ -5,8 +5,8 @@ class Lamp(pygame.sprite.Sprite):
     def __init__(self, screen):
         super().__init__()
         self.screen = screen
-        self.image = pygame.image.load("datа/beg1.png")
-        self.aura = pygame.image.load("datа/aura.png")
+        self.image = pygame.image.load("datа/images/beg1.png")
+        self.aura = pygame.image.load("datа/images/aura.png")
         self.aura = pygame.transform.scale(self.aura,
                                            (2048 * 3, 2048 * 3))
         self.aura_rect = self.aura.get_rect()
@@ -38,7 +38,7 @@ class Lamp(pygame.sprite.Sprite):
         if not self.hide_index:
             if self.stand_check:
                 # анимация бездействия персонажа
-                self.image = pygame.image.load(f"datа/stoyka{self.stand_index // 6 + 1}.png")
+                self.image = pygame.image.load(f"datа/images/stoyka{self.stand_index // 6 + 1}.png")
                 self.image = pygame.transform.scale(self.image,
                                                     (54, 162))
                 self.stand_index = (self.stand_index + 1) % 12
@@ -46,7 +46,7 @@ class Lamp(pygame.sprite.Sprite):
                 # анимация ходьбы вправо
                 if self.move_right and self.rect.right < self.screen_rect.right:
                     self.center += 9
-                    self.image = pygame.image.load(f"datа/beg{self.walk_index // 2}.png")
+                    self.image = pygame.image.load(f"datа/images/beg{self.walk_index // 2}.png")
                     self.image = pygame.transform.scale(self.image,
                                                         (78, 150))
                     self.walk_index = (self.walk_index + 1) % 8
@@ -55,7 +55,7 @@ class Lamp(pygame.sprite.Sprite):
                 # анимация ходьбы в лево
                 if self.move_left and self.rect.left > self.screen_rect.left:
                     self.center -= 9
-                    self.image = pygame.image.load(f"datа/beg{self.walk_index // 2 + 3}.png")
+                    self.image = pygame.image.load(f"datа/images/beg{self.walk_index // 2 + 3}.png")
                     self.image = pygame.transform.scale(self.image,
                                                         (78, 150))
                     self.walk_index = (self.walk_index + 1) % 8
@@ -67,7 +67,7 @@ class Lamp(pygame.sprite.Sprite):
         else:
             # анимация того как персонаж прячется
             if self.hide_count != 18:
-                self.image = pygame.image.load(f"datа/hide/hide{self.hide_count // 2 + 1}.png")
+                self.image = pygame.image.load(f"datа/images/hide/hide{self.hide_count // 2 + 1}.png")
                 self.image = pygame.transform.scale(self.image, (126, 180))
                 self.hide_count = self.hide_count + 1
 
@@ -107,7 +107,7 @@ class Lamp(pygame.sprite.Sprite):
             self.aura_rect.centerx = self.rect.centerx + 35
             self.aura_rect.centery = self.rect.centery + 5
         else:
-            self.aura = pygame.transform.scale(pygame.image.load("datа/aura.png"),
+            self.aura = pygame.transform.scale(pygame.image.load("data/images/aura.png"),
                                                (2048 * 3, 2048 * 3))
             self.aura_rect = self.aura.get_rect()
             self.aura_rect.centerx = self.rect.centerx

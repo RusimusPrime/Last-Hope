@@ -1,16 +1,16 @@
 import pygame
 import sqlite3
-import Controls
-from cheracter import Lamp
-from background import Background
-from Villian import MinorVillain
+import datа.control
+from datа.cheracter import Lamp
+from datа.background import Background
+from datа.Villian import MinorVillain
 import cv2
 import time
 import pyttsx3
 
 
 def screamer(window):
-    video = cv2.VideoCapture("datа/screem.mp4")
+    video = cv2.VideoCapture("datа/images/screem.mp4")
     success, video_image = video.read()
     fps = video.get(cv2.CAP_PROP_FPS)
     clock = pygame.time.Clock()
@@ -35,7 +35,7 @@ def screamer(window):
 
 
 def loading(screen):
-    video = cv2.VideoCapture("datа/fast_final.gif.mp4")
+    video = cv2.VideoCapture("datа/images/fast_final.gif.mp4")
     success, video_image = video.read()
     fps = video.get(cv2.CAP_PROP_FPS)
     clock = pygame.time.Clock()
@@ -142,11 +142,11 @@ def work(n):
             con.execute("""INSERT INTO best_time (time) VALUES(?)""", (best_time,))
             con.commit()
             return True
-        Controls.events(lamp, back)
+        datа.control.events(lamp, back)
         enemy.update(lamp)
         enemy2.update(lamp)
         lamp.update(back)
         screen.fill(bg_color)
         all_sprites.draw(screen)
-        Controls.update(screen, bg_color, lamp, back, enemy, enemy2)
+        datа.control.update(screen, bg_color, lamp, back, enemy, enemy2)
         clock.tick(fps)

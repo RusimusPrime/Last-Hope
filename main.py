@@ -1,4 +1,4 @@
-from game import *
+from datа.game import *
 import sqlite3
 import sys
 
@@ -15,9 +15,9 @@ class Menu(pygame.sprite.Sprite):
                                                             True, (255, 0, 0)), (515, 675))
         screen.blit(pygame.font.SysFont("Arial", 25).render("Лучший результат",
                                                             True, (255, 0, 0)), (500, 710))
-        self.images = [pygame.transform.scale(pygame.image.load("datа/back_1.jpg"),
+        self.images = [pygame.transform.scale(pygame.image.load("datа/images/back_1.jpg"),
                                               (388, 260)),
-                       pygame.transform.scale(pygame.image.load("datа/back_2.jpg"),
+                       pygame.transform.scale(pygame.image.load("datа/images/back_2.jpg"),
                                               (388, 260))]
         self.count = 0
         self.current_image = self.images[self.count]
