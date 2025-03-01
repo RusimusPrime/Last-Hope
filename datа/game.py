@@ -6,7 +6,7 @@ from datа.background import Background
 from datа.Villian import MinorVillain
 import cv2
 import time
-import pyttsx3
+import threading, pyttsx3
 
 
 def screamer(window):
@@ -85,6 +85,7 @@ def work(n):
             screen.fill('black')
             best_time = str(abs(start_time - time.time()))[:str(start_time - time.time()).find('.') - 1]
             text = f"Вы прожили {best_time} секунд"
+
             screen.blit(pygame.font.SysFont("Arial", 50).render("Вы проиграли. " + text,
                                                                 True, "white"), (250, 375))
             screen.blit(pygame.font.SysFont("Arial", 30).render("Нажмите пробел для перезапуска",
@@ -92,7 +93,7 @@ def work(n):
             pygame.display.update()
             engine = pyttsx3.init()
             engine.say(text)
-            engine.runAndWait()
+            threading.Thread(target=engine.runAndWait).start()
             con = sqlite3.connect("datа/time.sqlite")
             con.execute("""INSERT INTO best_time (time) VALUES(?)""", (best_time,))
             con.commit()
@@ -113,7 +114,7 @@ def work(n):
                 pygame.display.update()
                 engine = pyttsx3.init()
                 engine.say(text)
-                engine.runAndWait()
+                threading.Thread(target=engine.runAndWait).start()
                 con = sqlite3.connect("datа/time.sqlite")
                 con.execute("""INSERT INTO best_time (time) VALUES(?)""", (best_time,))
                 con.commit()
@@ -137,7 +138,7 @@ def work(n):
             pygame.display.update()
             engine = pyttsx3.init()
             engine.say(text)
-            engine.runAndWait()
+            threading.Thread(target=engine.runAndWait).start()
             con = sqlite3.connect("datа/time.sqlite")
             con.execute("""INSERT INTO best_time (time) VALUES(?)""", (best_time,))
             con.commit()

@@ -2,8 +2,6 @@ import pygame, sys
 
 
 def events(cheracter, back):
-    key = pygame.key.get_pressed()
-    print(key[pygame.K_LEFT])
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             sys.exit()
