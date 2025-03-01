@@ -9,12 +9,9 @@ class Menu(pygame.sprite.Sprite):
         pygame.draw.rect(screen, "white", (406, 640, 388, 28))
         pygame.draw.rect(screen, "white", (406, 675, 388, 28))
         pygame.draw.rect(screen, "white", (406, 710, 388, 28))
-        screen.blit(pygame.font.SysFont("Arial", 25).render("Начать игру",
-                                                            True, (255, 0, 0)), (540, 640))
-        screen.blit(pygame.font.SysFont("Arial", 25).render("Другой уровень",
-                                                            True, (255, 0, 0)), (515, 675))
-        screen.blit(pygame.font.SysFont("Arial", 25).render("Лучший результат",
-                                                            True, (255, 0, 0)), (500, 710))
+        screen.blit(pygame.font.SysFont("Arial", 25).render("Начать игру", True, (255, 0, 0)), (540, 640))
+        screen.blit(pygame.font.SysFont("Arial", 25).render("Другой уровень", True, (255, 0, 0)), (515, 675))
+        screen.blit(pygame.font.SysFont("Arial", 25).render("Лучший результат", True, (255, 0, 0)), (500, 710))
         self.images = [pygame.transform.scale(pygame.image.load("datа/images/back_1.jpg"),
                                               (388, 260)),
                        pygame.transform.scale(pygame.image.load("datа/images/back_2.jpg"),
@@ -45,7 +42,7 @@ class Menu(pygame.sprite.Sprite):
             con = sqlite3.connect("datа/time.sqlite")
             cur = con.cursor()
             result = cur.execute("""SELECT * FROM best_time""").fetchall()
-            result = max(list(map(int, result))) if result else ''
+            result = max([int(elem[0]) for elem in result]) if result else ''
             if result != '':
                 engine = pyttsx3.init()
                 text = f"Лучший результат {result} секунд"
@@ -60,6 +57,7 @@ class Menu(pygame.sprite.Sprite):
 
 pygame.init()
 screen = pygame.display.set_mode((1200, 800))
+pygame.display.set_icon(pygame.image.load("datа/images/last_hope_icon.png"))
 pygame.display.set_caption("Last Hope")
 screen.fill("black")
 menu = Menu(screen)

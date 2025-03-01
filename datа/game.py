@@ -4,9 +4,11 @@ import datа.control
 from datа.cheracter import Lamp
 from datа.background import Background
 from datа.Villian import MinorVillain
+from datа.Springbonie import Bonnie
 import cv2
 import time
 import threading, pyttsx3
+import random
 
 
 def screamer(window):
@@ -69,8 +71,12 @@ def work(n):
     fps = 30
     lamp = Lamp(screen)
     back = Background(screen, n)
-    enemy = MinorVillain(300, 510)
-    enemy2 = MinorVillain(300, 160)
+    koef = random.randint(1, 5)
+    enemy = Bonnie(300, 510) if koef == 5 else MinorVillain(300, 510)
+    print(koef)
+    koef = random.randint(1, 5)
+    enemy2 = MinorVillain(300, 160) if koef == 5 else MinorVillain(300, 160)
+    print(koef)
     all_sprites = pygame.sprite.Group()
     all_sprites.add(back)
     all_sprites.add(lamp)
@@ -149,5 +155,10 @@ def work(n):
         lamp.update(back)
         screen.fill(bg_color)
         all_sprites.draw(screen)
-        datа.control.update(screen, bg_color, lamp, back, enemy, enemy2)
+        screen.fill(bg_color)
+        back.output(lamp)
+        screen.blit(enemy.current_image, enemy.rect)
+        screen.blit(enemy2.current_image, enemy2.rect)
+        lamp.output()
+        pygame.display.flip()
         clock.tick(fps)

@@ -30,7 +30,7 @@ class Background(pygame.sprite.Sprite):
         # анимация открытия дверей
         if pygame.sprite.collide_mask(self, mask):
             if self.image_index != 4:
-                self.image = pygame.image.load(f"datа/background_{self.n % 2 + 1}_{self.image_index}.png")
+                self.image = pygame.image.load(f"datа/images/background_{self.n % 2 + 1}_{self.image_index}.png")
                 self.image = pygame.transform.scale(self.image,
                                                     (1200, 800))
 
